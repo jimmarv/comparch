@@ -1,0 +1,712 @@
+<?php
+include_once('connection.php');?>
+<!DOCTYPE html>
+<html>
+<head>
+  	<title>JIM</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" href="jimstyles.css">-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="reCopy.js"></script>
+
+	<script>
+		$(document).ready(function(){
+    		$("#show").click(function(){
+       	 $("#itemsTable").show();
+    		});
+		});
+</script>
+
+</head>
+
+<body>
+
+<table align="center">
+	<tr>
+		<td>
+		
+			<h1>Registers</h1>
+				<div id="reg_value">
+					<iframe src="registers.php">
+	  					<p>Your browser does not support iframes.</p>
+					</iframe>
+				</div>
+
+
+
+		</td>
+		<td width="50px">&nbsp;</td>
+
+		<td  >
+				<h1> Data</h1>
+				<iframe src="datavalue1.html">
+  					<p>Your browser does not support iframes.</p>
+				</iframe>
+			
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+
+<button id="edit_reg">Save</button>
+		</td>
+		<td width="50px">&nbsp;</td>
+		<td>
+<button id="edit_data">Save</button>
+		</td>
+
+	</tr>
+
+
+</table>
+
+
+
+
+
+
+<div   class="row"><br/><br/></div>
+
+<div  class="container">
+<h1  id="codes" align="center">Enter MIPS Codes Here</h1>
+<div class="row">
+	<div class="well well-lg">
+	<div  class="table-responsive"  >
+		<table id="itemsTable" class="table table-hover">
+				<thead>
+					<tr>
+						<th>Label(Optional)</th>
+						<th >Operation</th>
+						<th >Register Destination</th>
+						<th >Register Source</th>
+						<th >Register Another Source</th>
+						<th >&nbsp;</th>
+						<th >OpCode(Hex)</th>
+						<th >Task</th>			
+					</tr>
+				</thead>
+
+				<tbody >
+					<tr class="clone">
+					<td>
+					<input id="label[1]" class="form-control" type="text" onclick="SelectAll(this.id);" name="label[1]" value="" />
+					</td>
+
+					<td>
+					<select class="form-control" id="operation1" name= "operation">
+					<option>- Select One -</option>
+					<option disabled="">&nbsp;</option>
+					  <option disabled="">R Type</option>
+					
+					  <option value="101101" id="DADDU1">&nbsp;DADDU</option>
+					  <option value="011100" id="DMULT1">&nbsp;DMULT</option>
+					  <option value="100101" id="OR1">&nbsp;OR</option>
+					  <option value="010100" id="DSLLV1">&nbsp;DSLLV</option>
+					  <option value="101010" id="SLT1">&nbsp;SLT</option>
+
+					 <option disabled="">&nbsp;</option>
+					  <option disabled="">I Type</option>
+					  <option value="BNE" id="6">&nbsp;BNE</option>
+					  <option value="LW" id="7">&nbsp;LW</option>
+					  <option value="LWU" id="8">&nbsp;LWU</option>
+					  <option value="SW" id="9">&nbsp;SW</option>
+					  <option value="DADDU" id="10">&nbsp;DADDIU</option>
+					  <option value="ANDI" id="11">&nbsp;ANDI</option>
+					  <option disabled="">&nbsp;</option>
+					  <option disabled="">J Type</option>
+					  <option value="JUMP" id="12">&nbsp;J</option>
+
+					</select>
+
+					</td>
+					<td id="destination1">
+							<select class="form-control" name="rd1" id="rd1">
+								<option>- Select One -</option>
+							
+							</select>
+					</td>
+						
+					<td id="source1">
+							<select class="form-control" name="rs1" id="rs1">
+								<option>- Select One -</option>
+								
+							</select>
+							
+					</td>
+					<td id="source2">
+							<select class="form-control" name="rt1" id="rt1">
+								<option>- Select One -</option>
+								
+							</select>
+					</td>
+
+					<td>
+						<button id="gen1">Generate OpCode</button>
+					</td>
+
+
+					<td id="opcode1">
+						<input class='form-control'  type='text' id='opcode1' name='opcode1' onclick="SelectAll(this.id);" value="" readOnly >
+					</td>
+					<td class="center">
+						<button id="deleteicon[]" class="btn btn-danger confirm-delete" style="outline:none;" data-id="1" type="button">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</td>
+			
+					</tr>
+
+
+				<!-- SECOND ROW -->
+<tr class="clone">
+					<td>
+					<input id="label[2]" class="form-control" type="text" onclick="SelectAll(this.id);" name="label[2]" value="" />
+					</td>
+
+					<td>
+					<select class="form-control" id="operation" name= "operation">
+					<option>- Select One -</option>
+					<option disabled="">&nbsp;</option>
+					  <option disabled="">R Type</option>
+					
+					  <option value="DADDU" id="DADDU2">&nbsp;DADDU</option>
+					  <option value="DMULT" id="DMULT2">&nbsp;DMULT</option>
+					  <option value="OR" id="OR2">&nbsp;OR</option>
+					  <option value="DSLLV" id="DSLLV2">&nbsp;DSLLV</option>
+					  <option value="SLT" id="SLT2">&nbsp;SLT</option>
+
+					 <option disabled="">&nbsp;</option>
+					  <option disabled="">I Type</option>
+					  <option value="BNE" id="6">&nbsp;BNE</option>
+					  <option value="LW" id="7">&nbsp;LW</option>
+					  <option value="LWU" id="8">&nbsp;LWU</option>
+					  <option value="SW" id="9">&nbsp;SW</option>
+					  <option value="DADDU" id="10">&nbsp;DADDIU</option>
+					  <option value="ANDI" id="11">&nbsp;ANDI</option>
+					  <option disabled="">&nbsp;</option>
+					  <option disabled="">J Type</option>
+					  <option value="JUMP" id="12">&nbsp;J</option>
+
+					</select>
+
+					</td>
+					<td id="destination2">
+							<select class="form-control" name="rd[]" id="rd[]">
+								<option>- Select One -</option>
+								
+							</select>
+					</td>
+						
+					<td id="rs">
+							<select class="form-control" name="rs[]" id="rs[]">
+								<option>- Select One -</option>
+								
+							</select>
+							
+					</td>
+					<td id="rt">
+							<select class="form-control" name="rt[]" id="rt[]">
+								<option>- Select One -</option>
+								
+							</select>
+					</td>
+
+					<td>
+						<button id="gen2">Generate OpCode</button>
+					</td>
+
+
+
+					<td>
+						<input class='form-control'  type='text' id='opcode' name='opcode' onclick="SelectAll(this.id);" value="" readOnly >
+					</td>
+					<td class="center">
+						<button id="deleteicon[]" class="btn btn-danger confirm-delete" style="outline:none;" data-id="1" type="button">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</td>
+				
+					</tr>
+
+			<!-- THIRD ROW -->
+<tr class="clone">
+					<td>
+					<input id="label[3]" class="form-control" type="text" onclick="SelectAll(this.id);" name="label[3]" value="" />
+					</td>
+
+					<td>
+					<select class="form-control" id="operation" name= "operation">
+					<option>- Select One -</option>
+					<option disabled="">&nbsp;</option>
+					  <option disabled="">R Type</option>
+					
+					  <option value="DADDU" id="DADDU3">&nbsp;DADDU</option>
+					  <option value="DMULT" id="DMULT3">&nbsp;DMULT</option>
+					  <option value="OR" id="OR3">&nbsp;OR</option>
+					  <option value="DSLLV" id="DSLLV3">&nbsp;DSLLV</option>
+					  <option value="SLT" id="SLT3">&nbsp;SLT</option>
+
+					 <option disabled="">&nbsp;</option>
+					  <option disabled="">I Type</option>
+					  <option value="BNE" id="6">&nbsp;BNE</option>
+					  <option value="LW" id="7">&nbsp;LW</option>
+					  <option value="LWU" id="8">&nbsp;LWU</option>
+					  <option value="SW" id="9">&nbsp;SW</option>
+					  <option value="DADDU" id="10">&nbsp;DADDIU</option>
+					  <option value="ANDI" id="11">&nbsp;ANDI</option>
+					  <option disabled="">&nbsp;</option>
+					  <option disabled="">J Type</option>
+					  <option value="JUMP" id="12">&nbsp;J</option>
+
+					</select>
+
+					</td>
+					<td id="destination">
+							<select class="form-control" name="rd[]" id="rd[]">
+								<option>- Select One -</option>
+								
+							</select>
+					</td>
+						
+					<td id="rs">
+							<select class="form-control" name="rs[]" id="rs[]">
+								<option>- Select One -</option>
+								
+							</select>
+							
+					</td>
+					<td id="rt">
+							<select class="form-control" name="rt[]" id="rt[]">
+								<option>- Select One -</option>
+								
+							</select>
+					</td>
+
+					<td>
+						<button id="gen3">Generate OpCode</button>
+					</td>
+
+
+
+					<td>
+						<input class='form-control'  type='text' id='opcode' name='opcode' onclick="SelectAll(this.id);" value="" readOnly >
+					</td>
+					<td class="center">
+						<button id="deleteicon[]" class="btn btn-danger confirm-delete" style="outline:none;" data-id="1" type="button">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</td>
+					
+					</tr>
+
+<!-- FOURTH ROW -->
+
+<tr class="clone">
+					<td>
+					<input id="label[4]" class="form-control" type="text" onclick="SelectAll(this.id);" name="label[]" value="" />
+					</td>
+
+					<td>
+					<select class="form-control" id="operation" name= "operation">
+					<option>- Select One -</option>
+					<option disabled="">&nbsp;</option>
+					  <option disabled="">R Type</option>
+					
+					  <option value="DADDU" id="DADDU">&nbsp;DADDU</option>
+					  <option value="DMULT" id="DMULT">&nbsp;DMULT</option>
+					  <option value="OR" id="OR">&nbsp;OR</option>
+					  <option value="DSLLV" id="DSLLV">&nbsp;DSLLV</option>
+					  <option value="SLT" id="SLT">&nbsp;SLT</option>
+
+					 <option disabled="">&nbsp;</option>
+					  <option disabled="">I Type</option>
+					  <option value="BNE" id="6">&nbsp;BNE</option>
+					  <option value="LW" id="7">&nbsp;LW</option>
+					  <option value="LWU" id="8">&nbsp;LWU</option>
+					  <option value="SW" id="9">&nbsp;SW</option>
+					  <option value="DADDU" id="10">&nbsp;DADDIU</option>
+					  <option value="ANDI" id="11">&nbsp;ANDI</option>
+					  <option disabled="">&nbsp;</option>
+					  <option disabled="">J Type</option>
+					  <option value="JUMP" id="12">&nbsp;J</option>
+
+					</select>
+
+					</td>
+					<td id="destination">
+							<select class="form-control" name="rd[]" id="rd[]">
+								<option>- Select One -</option>
+								
+							</select>
+					</td>
+						
+					<td id="rs">
+							<select class="form-control" name="rs[]" id="rs[]">
+								<option>- Select One -</option>
+								
+							</select>
+							
+					</td>
+					<td id="rt">
+							<select class="form-control" name="rt[]" id="rt[]">
+								<option>- Select One -</option>
+								
+							</select>
+					</td>
+
+					<td>
+						<button id="gen4">Generate OpCode</button>
+					</td>
+
+
+					<td>
+						<input class='form-control'  type='text' id='opcode' name='opcode' onclick="SelectAll(this.id);" value="" readOnly >
+					</td>
+					<td class="center">
+						<button id="deleteicon[]" class="btn btn-danger confirm-delete" style="outline:none;" data-id="1" type="button">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</td>
+					
+					</tr>
+
+<!-- FIFTH ROW -->
+
+<tr class="clone">
+					<td>
+						<input id="label[5]" class="form-control" type="text" onclick="SelectAll(this.id);" name="label[]" value="" />
+					</td>
+
+					<td>
+					<select class="form-control" id="operation" name= "operation">
+
+					  <option>- Select One -</option>
+
+					  <option disabled="">&nbsp;</option>
+					  
+
+					  <option disabled="">R Type</option>
+					  <option value="DADDU" id="DADDU">&nbsp;DADDU</option>
+					  <option value="DMULT" id="DMULT">&nbsp;DMULT</option>
+					  <option value="OR" id="OR">&nbsp;OR</option>
+					  <option value="DSLLV" id="DSLLV">&nbsp;DSLLV</option>
+					  <option value="SLT" id="SLT">&nbsp;SLT</option>
+
+					  <option disabled="">&nbsp;</option>
+
+					  <option disabled="">I Type</option>
+					  <option value="BNE" id="6">&nbsp;BNE</option>
+					  <option value="LW" id="7">&nbsp;LW</option>
+					  <option value="LWU" id="8">&nbsp;LWU</option>
+					  <option value="SW" id="9">&nbsp;SW</option>
+					  <option value="DADDU" id="10">&nbsp;DADDIU</option>
+					  <option value="ANDI" id="11">&nbsp;ANDI</option>
+
+					  <option disabled="">&nbsp;</option>
+
+					  <option disabled="">J Type</option>
+					  <option value="JUMP" id="12">&nbsp;J</option>
+
+					</select>
+
+					</td>
+					<td id="destination">
+							<select class="form-control" name="rd[]" id="rd[]">
+								<option>- Select One -</option>	
+							</select>
+					</td>
+						
+					<td id="rs">
+							<select class="form-control" name="rs[]" id="rs[]">
+								<option>- Select One -</option>
+							</select>
+					</td>
+
+					<td id="rt">
+							<select class="form-control" name="rt[]" id="rt[]">
+								<option>- Select One -</option>	
+							</select>
+					</td>
+
+					<td>
+						<button id="gen5">Generate OpCode</button>
+					</td>
+
+					<td>
+						<input class='form-control'  type='text' id='opcode' name='opcode' onclick="SelectAll(this.id);" value="" readOnly >
+					</td>
+					<td class="center">
+						<button id="deleteicon[]" class="btn btn-danger confirm-delete" style="outline:none;" data-id="1" type="button">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</td>
+				
+					</tr>	
+				</tbody>
+<!--				<tfoot>
+			<tr>
+				<td>
+							<a class="btn btn-link add" style="text-decoration:none; outline:none;" onkeyup="setZero();" onmouseout="setZero();" rel=".clone" type="button"> Add a new line </a>
+							<button class="add-data">Add Row</button>
+
+					</td>
+	
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td class="left"> </td>
+					<td class="right" colspan="2"> </td>
+					<td> </td>
+					</tr>
+
+
+				</tfoot>
+-->
+			</table>
+
+
+			<div>
+				<br/><br/>
+			</div>
+		</div>	
+	</div>
+</div>
+
+
+<script>
+	/**INITIALIZE AJAX**/
+	function Inint_AJAX() 
+	{
+		try { return new ActiveXObject("Msxml2.XMLHTTP");} catch(e) {} 
+		try { return new ActiveXObject("Microsoft.XMLHTTP");} catch(e) {} 
+		try { return new XMLHttpRequest();} catch(e) {} 
+		alert("XMLHttpRequest not supported");
+		return null;
+	}
+	
+	/**HIGHLIGHT INPUT CONTENT**/
+	function SelectAll(id)
+	{
+		document.getElementById(id).focus();
+		document.getElementById(id).select();
+	}
+	
+	
+	/**RESET GENERATED ID FOR ROWS**/
+	function resetIds()
+	{
+		
+		var table 	= document.getElementById('itemsTable');
+		var count	= table.rows.length - 6;
+		x = 1;
+		for(var i = 1;i<count;i++){
+			var row = table.rows[i];
+			
+			row.cells[0].getElementsByTagName("input")[0].id 	= 'label['+x+']';
+			row.cells[1].getElementsByTagName("select")[0].id 	= 'operation['+x+']';
+			row.cells[2].getElementsByTagName("select")[0].id 	= 'rd['+x+']';
+			row.cells[3].getElementsByTagName("select")[0].id 	= 'rs['+x+']';
+			row.cells[4].getElementsByTagName("select")[0].id 	= 'rt['+x+']';
+			//row.cells[4].getElementsByTagName("input")[0].id 	= 'taxrate['+x+']';
+			//row.cells[4].getElementsByTagName("input")[1].id 	= 'taxamount['+x+']';
+			row.cells[5].getElementsByTagName("input")[0].id 	= 'opcode['+x+']';
+			
+			row.cells[0].getElementsByTagName("select")[0].name = 'label['+x+']';
+			row.cells[1].getElementsByTagName("input")[0].name 	= 'operation['+x+']';
+			row.cells[2].getElementsByTagName("input")[0].name 	= 'rd['+x+']';
+			row.cells[3].getElementsByTagName("input")[0].name 	= 'rs['+x+']';
+			row.cells[4].getElementsByTagName("select")[0].name = 'rt['+x+']';
+			//row.cells[4].getElementsByTagName("input")[0].name 	= 'taxrate['+x+']';
+			//row.cells[4].getElementsByTagName("input")[1].name 	= 'taxamount['+x+']';
+			row.cells[5].getElementsByTagName("input")[0].name 	= 'opcode['+x+']';
+			
+			row.cells[6].getElementsByTagName("button")[0].setAttribute('data-id',x);
+			row.cells[0].getElementsByTagName("input")[0].setAttribute('data-id',x);
+			
+			x++;
+		}
+		
+	}
+	/**DELETE ROW**/
+	function deleteItem(row)
+	{
+		var voucher		= document.getElementById('voucherno').value;
+		var companycode	= document.getElementById('companycode').value;
+		var table 		= document.getElementById('itemsTable');
+		var rowCount 	= table.rows.length - 2;
+		var valid		= 1;
+		
+		var rowindex	= table.rows[row];
+		if(rowindex.cells[0].childNodes[0] != null){
+			var index		= rowindex.cells[0].childNodes[0].value;
+			var datatable	= 'issuancedetails';
+			var condition	= " itemcode = '"+index+"' AND voucherno = '"+voucher+"' AND companycode = '"+companycode+"' AND linenum = '"+row+"' ";
+		
+			if(rowCount > 2){
+				table.deleteRow(row);		
+				
+			}
+		}else{
+			if(rowCount > 2){
+				table.deleteRow(row);	
+				resetIds();
+				addAmounts();
+			}else{
+				document.getElementById('itemcode['+row+']').value 			= '';
+				document.getElementById('detailparticular['+row+']').value 	= '';
+				document.getElementById('issueqty['+row+']').value 			= '1.00';
+				document.getElementById('unitprice['+row+']').value 		= '';
+				document.getElementById('taxcode['+row+']').value 			= '';
+				document.getElementById('taxrate['+row+']').value 			= '0.00';
+				document.getElementById('taxamount['+row+']').value 		= '0.00';
+				document.getElementById('amount['+row+']').value 			= '';
+				addAmounts();
+			}
+		}
+	}
+	
+	/**SET DEFAULT VALUES FOR ADDED ROWS**/
+	function setZero(){
+		resetIds();
+		var table 		= document.getElementById('itemsTable');
+		var newid 		= table.rows.length - 7;
+		
+		if(document.getElementById('instruction['+newid+']')!=null && document.getElementById('instruction['+newid+']').value == '')
+		{
+			document.getElementById('label['+newid+']').value 			= '';
+			document.getElementById('operation['+newid+']').value 	= '';
+			document.getElementById('rd['+newid+']').value 	= '';
+			document.getElementById('rs['+newid+']').value 		= '';
+			document.getElementById('rt['+newid+']').value 		= '';
+			document.getElementById('opcode['+newid+']').value 		= '';
+			//document.getElementById('opcode['+newid+']').value 			= '';
+		}
+	}
+	
+	
+    
+	$(document).ready(function(e){
+
+		$('a.add').relCopy();
+		
+		$('#DADDU1,#OR1,#DSLLV1,#SLT1').click(function(e){
+	
+			var type = 'rtype';
+			var data = 'type='+type+'&id=1';
+
+			$.post("dropdown_ajax.php",data)
+	    		.done(function( response ) {
+	    			var jsondata	= response;
+					$('#destination1').html(jsondata.destination);
+					$('#source1').html(jsondata.source1);
+					$('#source2').html(jsondata.source2);
+	    		});
+	
+	
+		
+			/*$('#destination').html("<select class='form-control'><option>1</option></select>");
+			$('#source1').html("<select class='form-control'><option>2</option></select>");
+			$('#source2').html("<select class='form-control'><option>3</option></select>");*/
+			$('#opcode1').html("<input class='form-control'  type='text' name='hexcode' readOnly >");
+			
+		});
+		
+		$('#DMULT1').click(function(e){
+	
+			var type = 'rtype';
+			var data = 'type='+type;
+
+				$.post("dropdown_ajax.php",data)
+	    		.done(function( response ) {
+	    			var jsondata	= response;
+					$('#destination1').html("");
+					$('#rs1').html(jsondata.source1);
+					$('#rt1').html(jsondata.source2);
+	    		});
+	
+			$('#opcode1').html("<input class='form-control'  type='text' name='hexcode' readOnly >");
+		});
+
+/* OpCode Generator*/
+
+		$('#gen1').click(function(e){
+	
+			var operation = $('#operation1').val();
+			var rd = $('#rd1').val();
+			var rs = $('#rs1').val();
+			var rt = $('#rt1').val();
+			var data = 'operation='+operation+'&rd='+rd+'&rs='+rs+'&rt='+rt;
+			//alert(operation+"-"+rd+"-"+rs+"-"+rt);
+				$.post("genopcode.php",data)
+	    		.done(function( response ) {
+	    			var jsondata	= response;
+					/*$('#destination1').html("");
+					$('#rs1').html(jsondata.source1);
+					$('#rt1').html(jsondata.source1);*/
+	    		});
+	
+			$('#opcode1').html("<input class='form-control' value='"+data+"' type='text' name='opcode' readOnly >");
+		});
+		
+		$('#6,#7,#8,#9,#10,#11').click(function(e){
+	
+			var type = 'itype';
+			var data = 'type='+type;
+
+				$.post("dropdown_ajax.php",data)
+	    		.done(function( response ) {
+	    			var jsondata	= response;
+					$('#destination').html(jsondata.destination);
+					$('#source1').html(jsondata.source1);
+					//$('#source2').html(jsondata.source1);
+	    		});		
+
+			
+			$('#source2').html("<input class='form-control' type='text' maxlength='5' name='input_num'>");
+			$('#opcode').html("<input class='form-control'  type='text' name='hexcode' readOnly >");
+			
+		});
+
+
+		$('#12').click(function(e){
+
+			$('#destination').html("");
+			$('#source1').html("");
+			$('#source2').html("");
+			$('#opcode').html("");
+
+		});		
+	});	
+</script>
+
+
+
+	<table  align="center">
+		<tr>
+			<td>
+		
+				<h1>Pipeline Map</h1>
+					<iframe src="pipelinemap.html">
+  						<p>Your browser does not support iframes.</p>
+					</iframe>
+			</td>
+
+			<td width="50px">&nbsp;</td>
+
+			<td>
+
+				<h1>Register Changes</h1>
+					<iframe src="changeregs.html">
+ 						 <p>Your browser does not support iframes.</p>
+					</iframe>
+			</td>
+		</tr>
+	</table>
+
+</body>
+
+</html> 

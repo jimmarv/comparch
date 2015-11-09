@@ -1,0 +1,16 @@
+<?php
+	header('Content-type: application/json');
+	include_once('connection.php');
+	
+	ob_start();
+	session_start();
+	
+	
+	
+	$dataArray			= array();
+	
+	echo json_encode($dataArray);
+	exit;
+	
+	ob_end_flush();
+?>

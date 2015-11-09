@@ -1,0 +1,6 @@
+1,BNE,000101,rs,rt,offset
+2,LW,100011,rs,rd,imm
+3,LWU,100111,rs,rd,offset
+4,SW,101011,rs,rt,offset
+5,DADDIU,011001,rs,rd,imm
+6,ANDI,001100,rs,rd,imm

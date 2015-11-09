@@ -1,0 +1,271 @@
+for ($val = 1; $val < 6; $val++) {
+											$cycle_counter .=  '<th width="100px">Cycle '.$val.'</th>';
+											$default .= '<td width="100px">&nbsp;</td>';
+											if($val==1){
+												$hex_val = '<td width="100px">'.$hex.'</td>';
+												$nc = GetValue('name','instructions','id="'.$next_id.'"');
+												$nc = '<td width="100px">'.$nc.'</td>';
+												$a="<td>&nbsp;</td>";
+											}
+											if($val==2){
+												$a = GetValue('updatedvalue','register','address="'.$col2.'"');
+												$a = '<td width="100px">'.$a.'</td>';
+												
+											}
+										//$hex_val = (isset($hex_val) && $hex_val!='')? $hex_val : $default;	
+										//$nc = (isset($nc) && $nc!='')? $nc : $default;	
+								}
+								 ?>
+								 
+								  <tr>
+									<th>&nbsp;</th>
+									<?=$cycle_counter?>
+								  </tr>
+								  <tr>
+									<td>IF/ID.IR</td>
+									<?=$hex_val?>
+								  </tr>
+								  <tr>
+									<td>IF/ID.NPC</td>
+									<?=$nc?>
+								  </tr>
+								  <tr>
+									<td>PC</td>
+									<?=$nc?>
+									</td>	
+								  </tr>
+								  <tr><td>&nbsp;</td></tr>
+								  <tr>
+								  <td>ID/EX.A</td>
+								  <?=$a?></tr>
+								  <tr>
+								  <td>ID/EX.B</td>
+								  <?php
+								  for ($val = 1; $val < 6; $val++) {
+											if($val==2){
+											$b = GetValue('updatedvalue','register','address="'.$col1.'"');
+											
+											echo '<td>'.$b.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+								  ?></tr>
+								  <tr>
+								  <td>ID/EX.IR</td>
+								  <?php
+								  for ($val = 1; $val < 6; $val++) {
+											if($val==2){
+											
+											echo '<td>'.$hex.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+											
+									 	
+										}
+								 ?>
+								</tr>
+								  <tr>
+								  <td>ID/EX.IMM</td>
+								  <?php
+								  for ($val = 1; $val < 6; $val++) {
+											if($val==2){
+											
+											if($type=='rtype'){
+												$imm = 'n/a';
+											}else if($type=='itype'){
+												if($operation=='011001'){
+													$source = GetValue('updatedvalue','register','address="'.$col2.'"');
+													$imm1 = hexdec($col3);
+													$imm2 = hexdec($source);
+													$sum = $imm1 +$imm2;
+													$sum = dechex($sum);
+													$count = strlen($sum);
+									
+													if($count!='16'){
+													$zeros = '';
+														$num_zeros = 16 - $count;
+														for ($x = 1; $x <= $num_zeros; $x++) {
+															$zeros .= '0';
+														} 
+														
+														$imm = $zeros.$sum;
+														
+													}
+													
+												}
+												
+											}
+											echo '<td>'.$imm.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+								  ?></tr>
+								  <tr>
+								  <td>ID/EX.NPC</td>
+								  <?php
+								  for ($val = 1; $val < 6; $val++) {
+											if($val==2){
+											$nc = GetValue('name','instructions','id="'.$next_id.'"');
+											echo '<td width="100px">'.$nc.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+								  ?></tr>
+								 <tr><td>&nbsp;</td></tr>
+								  <tr>
+									<td>EX/MEM.IR</td>
+									 <?php
+									 for ($val = 1; $val < 6; $val++) {
+											if($val==3){
+											
+											echo '<td>'.$hex.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+									?>
+								  </tr>
+								  <tr>
+									<td>EX/MEM.ALUoutput</td>
+									 <?php
+									 for ($val = 1; $val < 6; $val++) {
+											if($val==3){
+												
+											$a = GetValue('updatedvalue','register','address="'.$col2.'"');
+											$rt = GetValue('updatedvalue','register','address="'.$col3.'"');
+											$dec1 = hexdec($a);
+											$dec2 = hexdec($rt);
+											$sum = $dec1 +$dec2;
+											$sum = dechex($sum);
+											$count = strlen($sum);
+									
+											if($count!='16'){
+											$zeros = '';
+												$num_zeros = 16 - $count;
+												for ($x = 1; $x <= $num_zeros; $x++) {
+													$zeros .= '0';
+												} 
+												
+												$str = $zeros.$sum;
+												
+											}
+											
+											echo '<td>'.$str.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+									?>
+								  </tr>
+								  <tr>
+									<td>EX/MEM.B</td>
+									<?php
+									for ($val = 1; $val < 6; $val++) {
+											if($val==3){
+											$b = GetValue('updatedvalue','register','address="'.$col1.'"');
+											
+											echo '<td>'.$b.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+								  ?>	
+								  </tr>
+								  <tr>
+									<td>EX/MEM.Cond</td>
+									<?php
+									for ($val = 1; $val < 6; $val++) {
+											if($val==3){
+											
+											echo '<td>0</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+								  ?>	
+								  </tr>
+								  <tr><td>&nbsp;</td></tr>
+								   <tr>
+									<td>MEM/WB.IR</td>
+										<?php
+										for ($val = 1; $val < 6; $val++) {
+											if($val==4){
+											
+											echo '<td>'.$hex.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+										?>	
+								  </tr>
+								  <tr>
+									<td>MEM/WB.LMD</td>
+									<?php
+										for ($val = 1; $val < 6; $val++) {
+											if($val==4){
+											
+											echo '<td>0</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+										?>	
+								  </tr>
+								  <tr>
+									<td>MEM/WB.AlUOUTPUT</td>
+									<?php
+										for ($val = 1; $val < 6; $val++) {
+											if($val==4){
+											
+											echo '<td>'.$str.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+										?>	
+								  </tr>
+								  
+								  <tr>
+									<td>MEM[ALUOUTPUT]</td>
+										<?php
+										for ($val = 1; $val < 6; $val++) {
+											if($val==4){
+											
+											echo '<td>'.$str.'</td>';
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+										?>	
+								  </tr>
+								  <tr><td>&nbsp;</td></tr>
+								  <tr><td>WB</td>
+										<?php
+										for ($val = 1; $val < 6; $val++) {
+											if($val==5){
+											$r_name = GetValue('addressname','register','address="'.$col1.'"');
+											
+											echo '<td id="wb_value">'.$r_name.": " .$str.'</td>';
+											$arrVal['updatedvalue'] = $str;
+											updateRecord($arrVal,'register',"addressname='$r_name'");
+											}else{
+											echo '<td>&nbsp;</td>';
+											}
+										}
+									
+										?></tr>
